@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>七巧板</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+<script>
+    var width = 600,height = 600;
+    var transform = [
+        {p: [{x: 0, y: 0}, {x: 0, y: height}, {x: width/2, y: height/2}], color: "#FF3030"},
+        {p: [{x: 0, y: 0}, {x: width, y: 0}, {x: width/2, y: height/2}], color: "#FFD700"},
+        {p: [{x: 0, y: height}, {x: width/2, y: height}, {x: width/4, y: height/4*3}], color: "#EE00EE"},
+        {p: [{x: width/2, y: height}, {x: width, y: height}, {x: width, y: height/2}], color: "#8B4500"},
+        {p: [{x: width/2, y: height}, {x: width/4*3, y: height/4*3}, {x: width/2, y: height/2},
+            {x: width/4, y: height/4*3}], color: "#87CEEB"},
+        {p: [{x: width/2, y: height/2}, {x: width/4*3, y: height/4}, {x: width/4*3, y: height/4*3}], color: "#458B00"},
+        {p: [{x: width, y: 0}, {x: width/4*3, y: height/4}, {x: width/4*3, y: height/4*3}, {x: width, y: height/2}], color: "#1C86EE"} ];
+    window.onload=function(){
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+        for(var i=0;i<transform.length;i++){
+            draw(transform[i],context);
+        }
+    }
+    function draw(piece,cxt){
+        cxt.beginPath();
+        cxt.moveTo(piece.p[0].x,piece.p[0].y);
+        for(var i=1;i<piece.p.length;i++){
+            cxt.lineTo(piece.p[i].x,piece.p[i].y);
+        }
+        cxt.closePath();
+        cxt.fillStyle= piece.color;
+        cxt.fill();
+
+        cxt.lineWidth = 3;
+        cxt.strokeStyle = "black";
+        cxt.stroke();
+    }
+
+</script>
+
+</body>
+</html>
